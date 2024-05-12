@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap');
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #151719;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column; /* Ensure content stacks vertically */
+            background-image: url("../images/bg1.jpg");
+            background-size: cover;
+        }
+
+        .waviy {
+            margin-top: -20px;
+            position: relative;
+            -webkit-box-reflect: below -20px linear-gradient(transparent, rgba(0, 0, 0, .2));
+            font-size: 60px;
+            margin-bottom: 20px; /* Add margin to separate from the message */
+        }
+
+        .waviy span {
+            font-family: 'Alfa Slab One', cursive;
+            position: relative;
+            display: inline-block;
+            color: #fff;
+            text-transform: uppercase;
+            animation: waviy 1s infinite;
+            animation-delay: calc(.1s * var(--i));
+
+        }
+
+        @keyframes waviy {
+            0%, 40%, 100% {
+                transform: translateY(0)
+            }
+            20% {
+                transform: translateY(-20px)
+            }
+        }
+
+        body {
+            background-color: #121212;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-top: 50px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        p {
+    font-size: 1.5rem;
+    margin-top: 70px;
+    line-height: 1.6;
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 1; /* Start with opacity 1 */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Initial glow effect */
+    animation: glowEffect 1s infinite alternate; /* Apply the glowing effect animation */
+}
+
+@keyframes glowEffect {
+    0% {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Initial glow effect */
+    }
+    100% {
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.8); /* Increase glow effect */
+    }
+}
+
+        a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+            margin-top: 40px;
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #1DA1F2;
+            border-radius: 25px;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #0F75BD;
+        }
+
+        /* Button Animation */
+        .glow-on-hover {
+            width: 220px;
+            height: 50px;
+            border: none;
+            outline: none;
+            color: #fff;
+            background: #111;
+            cursor: pointer;
+            position: relative;
+            z-index: 0;
+            border-radius: 10px;
+            margin-top: 80px;
+        }
+
+        .glow-on-hover:before {
+            content: '';
+            background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            background-size: 400%;
+            z-index: -1;
+            filter: blur(5px);
+            width: calc(100% + 4px);
+            height: calc(100% + 4px);
+            animation: glowing 20s linear infinite;
+            opacity: 0;
+            transition: opacity .3s ease-in-out;
+            border-radius: 10px;
+        }
+
+        .glow-on-hover:active {
+            color: #000
+        }
+
+        .glow-on-hover:active:after {
+            background: transparent;
+        }
+
+        .glow-on-hover:before {
+            opacity: 1;
+        }
+
+        .glow-on-hover:after {
+            z-index: -1;
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #111;
+            left: 0;
+            top: 0;
+            border-radius: 10px;
+        }
+
+        @keyframes glowing {
+            0% {
+                background-position: 0 0;
+            }
+
+            50% {
+                background-position: 400% 0;
+            }
+
+            100% {
+                background-position: 0 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="waviy">
+        <span style="--i:1">E</span>
+        <span style="--i:2">R</span>
+        <span style="--i:3">R</span>
+        <span style="--i:4">O</span>
+        <span style="--i:5">R</span> 
+    </div>
+    <p><%= message %></p>
+
+    <button class="glow-on-hover" onclick="window.location.href='/'" type="button">Go back to homepage</button>
+</body>
+</html>

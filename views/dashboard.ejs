@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Accident Prevention Realtime Data</title>
+    <style>
+        body {
+            /* background-color: black; */
+            background-image: url('../images/bg.jpg') ;
+            background-repeat: no-repeat;
+            background-size:cover;
+            margin:0
+
+        }
+
+        .container {
+            width: 1200px !important;
+            padding: 0 !important;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        @media screen and (min-width: 992px) and (max-width: 1439px) {
+            .container {
+                max-width: 1279px !important;
+                padding: 0 !important;
+                margin: 0 80px !important;
+                width: auto !important;
+            }
+        }
+
+        @media screen and (max-width: 991px) {
+            .container {
+                max-width: 959px !important;
+                margin: 0 16px !important;
+                padding: 0 !important;
+                width: auto !important;
+            }
+        }
+
+        .gradient-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            padding: 30px;
+        }
+
+        @media screen and (max-width: 991px) {
+            .gradient-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .container-title {
+            text-align: center;
+            padding: 0 !important;
+            margin-bottom: 40px;
+            font-size: 40px;
+            color: #fff;
+            font-weight: 600;
+            line-height: 60px;
+        }
+
+        .card {
+            max-width: 550px;
+            border: 0;
+            width: 100%;
+            margin-inline: auto;
+        }
+
+        .container-card {
+            position: relative;
+            border: 2px solid transparent;
+            background: linear-gradient(71deg, #080509, #1a171c, #080509);
+            background-clip: padding-box;
+            border-radius: 45px;
+            padding: 40px;
+        }
+
+        .container-card img {
+            margin-bottom: 32px;
+        }
+
+        .bg-green-box,
+        .bg-white-box,
+        .bg-yellow-box,
+        .bg-blue-box {
+            position: relative;
+        }
+
+        .bg-green-box::after,
+        .bg-white-box::after,
+        .bg-yellow-box::after,
+        .bg-blue-box::after {
+            position: absolute;
+            top: -1px;
+            bottom: -1px;
+            left: -1px;
+            right: -1px;
+            content: "";
+            z-index: -1;
+            border-radius: 45px;
+        }
+
+        .bg-green-box::after {
+            background: linear-gradient(71deg, #0d1212, #f16a70, #0d1212);
+        }
+
+        .bg-white-box::after {
+            background: linear-gradient(71deg, #121013, #b1d877, #121013);
+        }
+
+        .bg-yellow-box::after {
+            background: linear-gradient(71deg, #110e0e, #8cdcda, #110e0e);
+        }
+
+        .bg-blue-box::after {
+            background: linear-gradient(71deg, #0c0a0e,  #7f6ab1, #0c0a0e);
+        }
+
+        .card-title {
+            font-weight: 600;
+            color: white;
+            letter-spacing: -0.02em;
+            line-height: 40px;
+            font-style: normal;
+            font-size: 28px;
+            padding-bottom: 8px;
+        }
+
+        .card-description {
+            font-weight: 600;
+            line-height: 32px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 16px;
+            max-width: 470px;
+        }
+
+        /* Additional styles for the main layout */
+        .data-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 30px; /* Added margin for spacing */
+        }
+
+        .data-item {
+            margin: 10px;
+        }
+
+        /* Adjusted card styles */
+        .data-item .card {
+            background-color: #1a171c; /* Adjusted background color */
+            color: white; /* Adjusted text color */
+            border: none; /* Removed border */
+            box-shadow: none; /* Removed box shadow */
+        }
+
+        .data-item .card h2 {
+            margin-top: 0;
+            font-size: 20px; /* Adjusted font size */
+        }
+
+        /* Modal Content */
+.modal-content {
+  background-color: #333; /* Dark background color */
+  color: #fff; /* Text color */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Add a subtle shadow */
+}
+
+/* Close button (x) */
+.close {
+  color: #fff; /* Text color */
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #ccc; /* Text color on hover/focus */
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Modal Background */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+}
+
+/* Center modal content vertically and horizontally */
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+        
+        .container-card:hover {
+            box-shadow: 0 0 20px #3da077, 
+                        0 0 40px #3da077, 
+                        0 0 60px #3da077;
+        }
+        
+        .bg-green-box.container-card:hover {
+            box-shadow: 0 0 10px #f16a70, 
+                        0 0 10px #f16a70, 
+                        0 0 10px #f16a70;
+        }
+
+        .bg-white-box.container-card:hover {
+            box-shadow: 0 0 10px #b1d877, 
+                        0 0 10px #b1d877, 
+                        0 0 10px #b1d877;
+        }
+
+        .bg-yellow-box.container-card:hover {
+            box-shadow: 0 0 10px #8cdcda, 
+                        0 0 10px #8cdcda, 
+                        0 0 10px #8cdcda;
+        }
+
+        .bg-blue-box.container-card:hover {
+            box-shadow: 0 0 10px  #7f6ab1, 
+                        0 0 10px  #7f6ab1, 
+                        0 0 10px  #7f6ab1;
+        }
+        h1 {
+  min-height: 100%;
+  display: flex;
+  font-family: "Vibur", cursive;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 35px;
+  text-align: center;
+
+  color: #c6e2ff;
+  animation: neon .08s ease-in-out infinite alternate;
+}
+@font-face {
+  font-family: neon;
+  src: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/707108/neon.ttf);
+}
+@import url("https://fonts.googleapis.com/css?family=Sacramento&display=swap");
+@keyframes neon {
+  from {
+    text-shadow:
+    0 0 6px rgba(202,228,225,0.92),
+    0 0 30px rgba(202,228,225,0.34),
+    0 0 12px rgba(30,132,242,0.52),
+    0 0 21px rgba(30,132,242,0.92),
+    0 0 34px rgba(30,132,242,0.78),
+    0 0 54px rgba(30,132,242,0.92);
+  }
+  to {
+    text-shadow:
+    0 0 6px rgba(202,228,225,0.98),
+    0 0 30px rgba(202,228,225,0.42),
+    0 0 12px rgba(30,132,242,0.58),
+    0 0 22px rgba(30,132,242,0.84),
+    0 0 38px rgba(30,132,242,0.88),
+    0 0 60px rgba(30,132,242,1);
+  }
+}
+h5 {
+    top: 0px;
+  font-size:35px; /* Adjust size as needed */
+ /* Adjust line height as needed */
+  text-shadow: 
+    0 0 5px #ffa500,
+    0 0 15px #ffa500,
+    0 0 20px #ffa500,
+    0 0 40px #ffa500,
+    0 0 60px #ff0000,
+    0 0 10px #ff8d00,
+    0 0 98px #ff0000;
+  color: #fff6a9;
+  font-family: "Sacramento", cursive;
+  text-align: center;
+  animation: blink 12s infinite;
+}
+
+@keyframes blink {
+  20%,
+  24%,
+  55% {
+    color: #111;
+    text-shadow: none;
+  }
+
+  0%,
+  19%,
+  21%,
+  23%,
+  25%,
+  54%,
+  56%,
+  100% {
+    text-shadow: 
+      0 0 5px #ffa500,
+      0 0 15px #ffa500,
+      0 0 20px #ffa500,
+      0 0 40px #ffa500,
+      0 0 60px #ff0000,
+      0 0 10px #ff8d00,
+      0 0 98px #ff0000;
+    color: #fff6a9;
+  }
+}
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+   /* Adjust this value as needed */
+}
+#logoutButton {
+  color: #FFF;
+  transition: all 0.3s;
+  position: relative; 
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px 20px;
+  background-color: black;
+  border: none;
+  position: relative;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#logoutButton span {
+  transition: all 0.3s;
+}
+#logoutButton:hover {
+  box-shadow: 0 0 20px #FF6766, 0 0 40px #FF6766, 0 0 80px #FF6766, 0 0 160px #FF6766;
+}
+
+#logoutButton::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0;
+  transition: all 0.3s;
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+  border-top-style: solid;
+  border-bottom-style: solid;
+  border-top-color: rgba(255,255,255,0.5);
+  border-bottom-color: rgba(255,255,255,0.5);
+  transform: scale(0.1, 1);
+}
+
+#logoutButton:hover span {
+  letter-spacing: 2px;
+}
+
+#logoutButton:hover::before {
+  opacity: 1; 
+  transform: scale(1, 1); 
+}
+
+#logoutButton::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  transition: all 0.3s;
+  background-color: rgba(255,255,255,0.1);
+}
+
+#logoutButton:hover::after {
+  opacity: 0; 
+  transform: scale(0.1, 1);
+}
+#viewOnMapButton {
+    padding: 12px 24px;
+    background-color: #3498db; /* Blue color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    margin-top: 20px;
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.5); /* Subtle glow effect */
+}
+
+/* Button hover effect */
+#viewOnMapButton:hover {
+    background-color: #2980b9; /* Darker shade for hover effect */
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(52, 152, 219, 0.8); /* Increased glow on hover */
+}
+
+/* Button animation */
+@keyframes pulse {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+    }
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+    }
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    }
+}
+
+/* Apply animation to the button */
+#viewOnMapButton:hover {
+    animation: pulse 1s infinite;
+}
+
+
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-YeHyVJQ9TT63Qv5lLsZu3WT5ZPPhc5d/FwXt5gsK4aJ4ETv84bn/QGr7ajua5v7FTZxN3f86uGr6SqMrXp4T9w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body>
+
+    <h5 id="welcomeMessage">Welcome, Guest</h5>
+    <h1 class="data-head">Accident Prevention Realtime Data</h1>
+
+    <div class="container">
+        <div class="gradient-cards">
+            <div class="container-card bg-green-box">
+                <div class="card">
+                    
+                    <h2 class="card-title">Accident Detection</h2>
+                    <p class="card-description value" id="accident_detection"></p>
+                </div>
+            </div>
+            <div class="container-card bg-white-box">
+                <div class="card">
+                    <h2 class="card-title">Gas Status</h2>
+                    <p class="card-description value" id="gas_status"></p>
+                </div>
+            </div>
+            <div class="container-card bg-yellow-box">
+                <div class="card">
+                    
+                    <h2 class="card-title">Latitude</h2>
+                    <p class="card-description value" id="latitude"></p>
+                </div>
+            </div>
+            <div class="container-card bg-blue-box">
+                <div class="card">
+                  
+                    <h2 class="card-title">Longitude</h2>
+                    <p class="card-description value" id="longitude"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal dialog -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="accident-message"></p>
+            <button id="viewOnMapButton" style="display: none;">View on Map</button> <!-- Button initially hidden -->
+        </div>
+    </div>
+
+    <!-- Include Firebase JavaScript SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+
+    <script>
+        // Your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDs5TkLA61auTGO4oS2J0l8oNJ1DN5RJDY",
+            authDomain: "accident-detection-8e6db.firebaseapp.com",
+            databaseURL: "https://accident-detection-8e6db-default-rtdb.firebaseio.com",
+            projectId: "accident-detection-8e6db",
+            storageBucket: "accident-detection-8e6db.appspot.com",
+            messagingSenderId: "623033610311",
+            appId: "1:623033610311:web:b9d3c3cf48dd5425b78162"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Reference to the Firebase database
+        var database = firebase.database();
+
+        // Reference to the data
+        var dataRef1 = database.ref('Accident_Prevention/Accident_detection');
+        var dataRef2 = database.ref('Accident_Prevention/Gas_Status');
+        var dataRef3 = database.ref('Accident_Prevention/Latitude');
+        var dataRef4 = database.ref('Accident_Prevention/Longitude');
+
+        // Fetch the data
+        dataRef1.on('value', function(snapshot) {
+            var accidentDetection = snapshot.val();
+            document.getElementById('accident_detection').innerHTML = accidentDetection;
+            // Display modal if accident is detected
+            if (accidentDetection === "Accident is detected") {
+                var modal = document.getElementById("myModal");
+                var message = document.getElementById("accident-message");
+                message.innerHTML = "Accident detected!";
+                var viewOnMapButton = document.getElementById("viewOnMapButton");
+                viewOnMapButton.style.display = "block"; // Show the button
+                modal.style.display = "block";
+                // Close the modal when the user clicks on the close button (x)
+                var span = document.getElementsByClassName("close")[0];
+                span.onclick = function() {
+                    modal.style.display = "none";
+                }
+                // Button click event to view on map
+                viewOnMapButton.onclick = function() {
+                    var latitude = document.getElementById('latitude').innerHTML;
+                    var longitude = document.getElementById('longitude').innerHTML;
+                    var url = "https://www.google.com/maps/search/?api=1&query=" + latitude + "," + longitude;
+                    window.open(url, "_blank"); // Open in a new tab
+                }
+            }
+        });
+
+        dataRef2.on('value', function(snapshot) {
+            var gasStatus = snapshot.val();
+            document.getElementById('gas_status').innerHTML = gasStatus;
+        });
+
+        dataRef3.on('value', function(snapshot) {
+            var latitude = snapshot.val();
+            document.getElementById('latitude').innerHTML = latitude;
+        });
+
+        dataRef4.on('value', function(snapshot) {
+            var longitude = snapshot.val();
+            document.getElementById('longitude').innerHTML = longitude;
+        });
+        
+    </script>
+
+<div class="button-container">
+    <button id="logoutButton">Logout</button>
+  </div>
+
+    <script>
+        // Check if the user is logged in
+        const username = '<%= username %>';
+        if (username) {
+            // Update the welcome message with the username
+            document.getElementById('welcomeMessage').innerText = 'Welcome, ' + username;
+        }
+        // Logout button functionality
+        document.getElementById('logoutButton').addEventListener('click', () => {
+            window.location.href = '/'; // Redirect to the logout route
+        });
+    </script>
+</body>
+</html>
