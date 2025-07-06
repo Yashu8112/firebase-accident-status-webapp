@@ -66,9 +66,14 @@ Logout from /logout
 
 The IoT hardware sends data to the backend server, which then logs and analyzes it. On detecting an accident, an emergency alert is triggered and the hospital is notified.
 
+🖼️ Screenshots
+
 ![alt text](image.png)
+
 ![alt text](image-1.png)
+
 ![alt text](image-2.png)
+
 ![alt text](image-3.png)
+
 ![alt text](image-4.png)
-![alt text](image-5.png)
